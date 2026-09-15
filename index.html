@@ -10,34 +10,6 @@
     * {
       box-sizing: border-box;
     }
-    <script>
-function checkMarketStatus() {
-  const now = new Date();
-
-  const day = now.getDay();
-  const hour = now.getHours();
-  const minute = now.getMinutes();
-
-  const currentTime = hour * 60 + minute;
-  const marketOpen = 9 * 60 + 15;
-  const marketClose = 15 * 60 + 30;
-
-  const market = document.getElementById("market");
-
-  if (day === 0 || day === 6) {
-    market.innerText = "🔴 Market Closed";
-  } 
-  else if (currentTime >= marketOpen && currentTime <= marketClose) {
-    market.innerText = "🟢 Market Open";
-  } 
-  else {
-    market.innerText = "🔴 Market Closed";
-  }
-}
-
-checkMarketStatus();
-setInterval(checkMarketStatus, 60000);
-</script>
 
     body {
       margin: 0;
@@ -66,7 +38,6 @@ setInterval(checkMarketStatus, 60000);
       border-radius: 18px;
       padding: 25px 15px;
       margin-bottom: 18px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     }
 
     .label {
@@ -120,11 +91,70 @@ setInterval(checkMarketStatus, 60000);
     <div class="card">
       <div class="label">Analysis</div>
       <div class="info" id="analysis">
-        Waiting for market data...
+        Connecting to market server...
       </div>
     </div>
 
   </div>
+
+<script>
+
+const API_URL = "https://nifty-direction-app.onrender.com";
+
+async function loadData() {
+
+  try {
+
+    const response = await fetch(API_URL);
+
+    const data = await response.json();
+
+    document.getElementById("direction").innerText =
+      data.direction || "WAIT";
+
+    document.getElementById("analysis").innerText =
+      "Backend connected successfully.";
+
+  } catch (error) {
+
+    document.getElementById("analysis").innerText =
+      "Unable to connect to market server.";
+
+  }
+}
+
+function checkMarketStatus() {
+
+  const now = new Date();
+
+  const day = now.getDay();
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+
+  const currentTime = hour * 60 + minute;
+  const marketOpen = 9 * 60 + 15;
+  const marketClose = 15 * 60 + 30;
+
+  const market = document.getElementById("market");
+
+  if (day === 0 || day === 6) {
+    market.innerText = "🔴 Market Closed";
+  }
+  else if (currentTime >= marketOpen && currentTime <= marketClose) {
+    market.innerText = "🟢 Market Open";
+  }
+  else {
+    market.innerText = "🔴 Market Closed";
+  }
+}
+
+checkMarketStatus();
+loadData();
+
+setInterval(checkMarketStatus, 60000);
+setInterval(loadData, 30000);
+
+</script>
 
 </body>
 </html>
