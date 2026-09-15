@@ -1,18 +1,101 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>NIFTY Market App</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+    }
+
+    .header {
+      padding: 25px 15px;
+      background: #111827;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .card {
+      background: #1e293b;
+      border-radius: 18px;
+      padding: 25px 15px;
+      margin-bottom: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    .label {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    #direction {
+      font-size: 32px;
+      font-weight: bold;
+      padding: 20px;
+    }
+
+    .info {
+      font-size: 15px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>NIFTY Market Direction</h1>
 
-  <h2 id="market">Market Status: Checking...</h2>
+  <div class="header">
+    <h1>📊 NIFTY Market App</h1>
+  </div>
 
-  <div id="direction">
-    Direction: WAIT
+  <div class="container">
+
+    <div class="card">
+      <div class="label">Market Status</div>
+      <div class="value" id="market">Checking...</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Market Direction</div>
+      <div id="direction">WAIT</div>
+    </div>
+
+    <div class="card">
+      <div class="label">NIFTY Price</div>
+      <div class="value" id="price">--</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Analysis</div>
+      <div class="info" id="analysis">
+        Waiting for market data...
+      </div>
+    </div>
+
   </div>
 
 </body>
